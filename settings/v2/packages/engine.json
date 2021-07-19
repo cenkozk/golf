@@ -1,0 +1,10 @@
+{
+  "__version__": "1.0.5",
+  "macroConfig": {
+    "ENABLE_TILEDMAP_CULLING": false,
+    "ENABLE_WEBGL_ANTIALIAS": false,
+    "ENABLE_TRANSPARENT_CANVAS": true,
+    "ENABLE_MULTI_TOUCH": false,
+    "MAX_LABEL_CANVAS_POOL_SIZE": 20
+  }
+}

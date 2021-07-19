@@ -1,0 +1,20 @@
+{
+  "author": "",
+  "creator": {
+    "version": "3.2.0"
+  },
+  "dependencies": {
+    "polygon-clipping": "^0.15.3"
+  },
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "golf",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "3d",
+  "uuid": "df0f6c90-97bf-4696-ab5b-b05a12aca559",
+  "version": "3.2.0"
+}
