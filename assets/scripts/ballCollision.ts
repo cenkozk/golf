@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, CircleCollider2D, Contact2DType, AudioSource, find, AudioClip, IPhysics2DContact, RigidBody2D, clamp, ERigidBody2DType, Vec2, tween, Vec3 } from 'cc';
+import { _decorator, Component, Node, CircleCollider2D, Contact2DType, AudioSource, find, AudioClip, IPhysics2DContact, RigidBody2D, clamp, Vec2, tween, Vec3, Prefab, instantiate, director, sp, BaseNode } from 'cc';
 const { ccclass, property } = _decorator;
 import { TouchHandler } from './touchHandler';
 import { LevelManager } from './levelManager';
@@ -14,6 +14,9 @@ export class BallCollision extends Component {
 
     @property(AudioClip)
     wood_Hit_Clip:AudioClip = null!;
+
+    @property(Prefab)
+    ballObject:Prefab = null!;
 
 
     start () {
@@ -40,21 +43,29 @@ export class BallCollision extends Component {
             if(magnitude < 15){
                 TouchHandler.ifHoleIn = true;
                 LevelManager.currentLevel += 1;
+                var cLevel = find(`Canvas/Layout/level_${LevelManager.currentLevel-1}`)!;
                 var openLevel = find(`Canvas/Layout/level_${LevelManager.currentLevel}`)!;
                 openLevel.active = true;
+                var spawnObject = instantiate(this.ballObject);
+                spawnObject.setParent(openLevel); 
+                spawnObject.setPosition(16,-240,0);
+                spawnObject.active = true;
+                console.log(spawnObject);
+                console.log(openLevel);
                 var colPos = otherCollider.node.getComponent(CircleCollider2D).offset;
                 this.RB2D.linearVelocity = new Vec2(0,0);
                 tween(this.node)
                 .to(1,{position: new Vec3(colPos.x,colPos.y,0)},{easing:'bounceInOut'})
                 .start();
                 this.scheduleOnce(() =>{tween(this.camera)
-                .to(1,{position: new Vec3(this.camera.position.x,this.camera.position.y+750,0)},{easing:'sineInOut'})
+                .to(1.5,{position: new Vec3(this.camera.position.x,this.camera.position.y+750,0)},{easing:'quartInOut'})
                 .start();
                 },1)
                 this.scheduleOnce(() =>{
-                    var cLevel = find(`Canvas/Layout/level_${LevelManager.currentLevel-1}`)!;
+                    var cBall = find(`Canvas/Layout/level_${LevelManager.currentLevel-1}/ball`)!;
+                    //cBall.destroy();
                     cLevel.destroy();
-                },3)
+                },3.5)
             }else{
                 this.RB2D.linearDamping = 10;
             }
@@ -68,18 +79,5 @@ export class BallCollision extends Component {
         }
     }
 
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+    
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ball-001",
+    "_name": "ball",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -252,7 +252,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "270/O6g5ZMK6wxWu8+pfUR"
+    "fileId": "2e8T7w+4hBApoKVOcXiqyi"
   },
   {
     "__type__": "cc.UITransform",
@@ -289,7 +289,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "e3nB6g4VtID6OiTT+mWtF1"
+    "fileId": "6ctSmS7YhGC5OCp6tJ3aKR"
   },
   {
     "__type__": "cc.Node",
@@ -419,7 +419,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "d7yXDAxDBJYqOmRR4gZgCj"
+    "fileId": "956jQOyjpFhqUYQ3IN3PFX"
   },
   {
     "__type__": "cc.Node",
@@ -549,7 +549,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "0dvQIMuVRKgZ5LoQSfuTy2"
+    "fileId": "83Kdl7dAZLvpIfqiPzWw/4"
   },
   {
     "__type__": "cc.UITransform",
@@ -616,12 +616,12 @@
       "__id__": 29
     },
     "enabledContactListener": true,
-    "bullet": false,
+    "bullet": true,
     "awakeOnLoad": true,
     "_group": 1,
     "_type": 2,
     "_allowSleep": true,
-    "_gravityScale": 0,
+    "_gravityScale": 1,
     "_linearDamping": 1,
     "_angularDamping": 0,
     "_linearVelocity": {
@@ -681,6 +681,10 @@
       "__uuid__": "d1c463ed-50a9-4eeb-b52c-a6d330558b9f",
       "__expectedType__": "cc.AudioClip"
     },
+    "ballObject": {
+      "__uuid__": "032d1b9e-a56a-4725-957a-76ffdac7b48f",
+      "__expectedType__": "cc.Prefab"
+    },
     "_id": ""
   },
   {
@@ -695,6 +699,6 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "45p3uJfG5Aa5+2fpSh4gy1"
+    "fileId": "c7xhgybmFMV7Tn4DC4Fxij"
   }
 ]
