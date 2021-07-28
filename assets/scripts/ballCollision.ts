@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, CircleCollider2D, Contact2DType, AudioSource, find, AudioClip, IPhysics2DContact, RigidBody2D, clamp, Vec2, tween, Vec3, Prefab, instantiate, director, sp, BaseNode } from 'cc';
+import { _decorator, Component, Node, CircleCollider2D, Contact2DType, AudioSource, find, AudioClip, IPhysics2DContact, RigidBody2D, clamp, Vec2, tween, Vec3, Prefab, instantiate, director, sp, BaseNode, ERigidBody2DType } from 'cc';
 const { ccclass, property } = _decorator;
 import { TouchHandler } from './touchHandler';
 import { LevelManager } from './levelManager';
@@ -19,10 +19,10 @@ export class BallCollision extends Component {
     ballObject:Prefab = null!;
 
 
-    start () {
+    onEnable () {
        this.col = this.node.getComponent(CircleCollider2D)!;
-       this.audioManager = find('Canvas/audioManager')?.getComponent(AudioSource)!
-       this.camera = find('Canvas/Camera')!;
+       this.audioManager = find('Canvas/GAME_MAIN/audioManager')?.getComponent(AudioSource)!
+       this.camera = find('Canvas/GAME_MAIN/Camera')!;
        this.RB2D = this.node.getComponent(RigidBody2D)!;
 
        this.col.on(Contact2DType.BEGIN_CONTACT,this.contact,this);
@@ -40,20 +40,23 @@ export class BallCollision extends Component {
         }
 
         if(otherCollider.node.name == "hole"){
-            if(magnitude < 15){
+            if(magnitude < 20){
                 TouchHandler.ifHoleIn = true;
                 LevelManager.currentLevel += 1;
-                var cLevel = find(`Canvas/Layout/level_${LevelManager.currentLevel-1}`)!;
-                var openLevel = find(`Canvas/Layout/level_${LevelManager.currentLevel}`)!;
+                
+                //INSTANTIATE BALL PREFAB
+                setTimeout(() => {
+                console.log(this.node.parent);
+                var openLevel = find(`Canvas/GAME_MAIN/Layout/level_${LevelManager.currentLevel}`)!;
                 openLevel.active = true;
                 var spawnObject = instantiate(this.ballObject);
                 spawnObject.setParent(openLevel); 
                 spawnObject.setPosition(16,-240,0);
-                spawnObject.active = true;
-                console.log(spawnObject);
-                console.log(openLevel);
+                }, 0);
+                //GET HOLE POS & MAKE BALL KINEMATIC
                 var colPos = otherCollider.node.getComponent(CircleCollider2D).offset;
                 this.RB2D.linearVelocity = new Vec2(0,0);
+                //TRANSITION TO NEXT LEVEL
                 tween(this.node)
                 .to(1,{position: new Vec3(colPos.x,colPos.y,0)},{easing:'bounceInOut'})
                 .start();
@@ -61,11 +64,16 @@ export class BallCollision extends Component {
                 .to(1.5,{position: new Vec3(this.camera.position.x,this.camera.position.y+750,0)},{easing:'quartInOut'})
                 .start();
                 },1)
-                this.scheduleOnce(() =>{
-                    var cBall = find(`Canvas/Layout/level_${LevelManager.currentLevel-1}/ball`)!;
-                    //cBall.destroy();
-                    cLevel.destroy();
-                },3.5)
+                setTimeout(() => {
+                    var cBall = find(`Canvas/GAME_MAIN/Layout/level_${LevelManager.currentLevel-1}/ball`)!;
+                    var cLevel = find(`Canvas/GAME_MAIN/Layout/level_${LevelManager.currentLevel-1}`)!;
+                    cBall.removeFromParent();
+                    for (let i = 0; i < cLevel.children.length; i++) {
+                        cLevel.children[i].destroy();
+                    }
+                    cLevel.destroy()
+                    console.log(cLevel);
+                }, 3500);
             }else{
                 this.RB2D.linearDamping = 10;
             }
@@ -75,7 +83,7 @@ export class BallCollision extends Component {
 
     endContact(selfCollider: CircleCollider2D, otherCollider: any, contact: IPhysics2DContact | null) {
         if(otherCollider.node.name){
-            this.RB2D.linearDamping = 1;
+            this.RB2D.linearDamping = 2;
         }
     }
 

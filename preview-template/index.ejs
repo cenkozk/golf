@@ -18,27 +18,6 @@
         <link rel="stylesheet" type="text/css" href="./index.css" />
     </head>
     <body>
-        <%- include(cocosToolBar, {config: config}) %>
-        <div id="content" class="content">
-            <div class="contentWrap">
-                <div id="GameDiv" class="wrapper">
-                    <canvas id="GameCanvas"></canvas>
-                    <div id="splash">
-                        <div class="progress-bar stripes"><span></span></div>
-                    </div>
-                    <div id="bulletin">
-                        <div id="sceneIsEmpty" class="inner"><%=tip_sceneIsEmpty%></div>
-                    </div>
-                    <div class="error" id="error">
-                        <div class="title">Error <i>(Please open the console to see detailed errors)</i></div>
-                        <div class="error-main"></div>
-                    </div>
-                </div>
-            </div>
-            <p class="footer">
-                Created with <a href="https://www.cocos.com/products" target="_blank" title="Cocos Creator">Cocos Creator</a>
-            </p>
-        </div>
-        <%- include(cocosTemplate, {}) %>
+        <%- include("./custom.html") %>
     </body>
 </html>

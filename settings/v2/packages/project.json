@@ -4,7 +4,8 @@
     "designResolution": {
       "fitHeight": true,
       "width": 450,
-      "height": 900
+      "height": 900,
+      "fitWidth": true
     },
     "renderPipeline": "fd8ec536-a354-4a17-9c74-4f3883c378c8"
   }

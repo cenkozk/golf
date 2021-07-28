@@ -1,0 +1,13 @@
+{
+  "ver": "1.0.11",
+  "importer": "animation-clip",
+  "imported": true,
+  "uuid": "d957b956-3e46-427c-81ac-4f9020dd2216",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {
+    "name": "touchSprite"
+  }
+}

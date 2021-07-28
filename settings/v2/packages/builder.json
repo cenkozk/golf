@@ -1,6 +1,7 @@
 {
   "__version__": "1.2.8",
   "splash-setting": {
-    "displayRatio": 0
+    "displayRatio": 0,
+    "totalTime": 0
   }
 }
